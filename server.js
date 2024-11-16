@@ -5,11 +5,12 @@ const { connect } = require('./config/db');
 const workerRoutes = require('./routes/workerRoutes');
 const professionRoutes = require('./routes/professionRoutes');
 
+console.log('1');
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
-
+console.log('2');
 app.use(cors());
 app.use(express.json());
 
