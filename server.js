@@ -1,5 +1,5 @@
 console.log(process.env.NODE_ENV);
-onst express = require('express');
+const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const { connect } = require('./config/db');
@@ -10,7 +10,7 @@ console.log('1');
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 console.log('2');
 app.use(cors());
 app.use(express.json());
