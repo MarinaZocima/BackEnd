@@ -1,4 +1,5 @@
-const express = require('express');
+console.log(process.env.NODE_ENV);
+onst express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const { connect } = require('./config/db');
