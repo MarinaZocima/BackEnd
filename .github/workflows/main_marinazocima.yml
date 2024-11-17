@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -26,12 +26,15 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-      
+
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,17 +50,20 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
+
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A79E715126814B6C99D5D28270447EB3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2BA7CBE4EC6B4B829EF08F1C17DC24D3 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0D3DB31D0B284C0C85CE20653B7D4CF8 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9F52840D8C604325BE4A71AE00FBB073 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3E02B4E5FCF0480E9AFA7682363DDBFF }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7B926362DD634756AFE4A06D66D44280 }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'MarinaZocima'
           slot-name: 'Production'
