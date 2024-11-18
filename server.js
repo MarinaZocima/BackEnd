@@ -14,11 +14,10 @@ const port = process.env.PORT || 8080;
 console.log('2');
 app.use(cors());
 app.use(express.json());
+connect();
 
-//connect();
-
-//app.use('/api/workers', workerRoutes);
-//app.use('/api/professions', professionRoutes);
+app.use('/api/workers', workerRoutes);
+app.use('/api/professions', professionRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);});
